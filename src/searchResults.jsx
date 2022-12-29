@@ -37,21 +37,14 @@ function SearchResults(props) {
         }
 
     const checkIn = (e) => {
-
+        
         console.log(e.target.value)
     }
-    // switch (searchResults) {
-    //     case (undefined): 
-            
-    //     case ([]): 
-    //         return
-    // }
 
     if (searchResults === undefined) {
         return (
             <div>
-                <p>Oh no! Looks like we have don't have you in our system!</p>
-                <p>Create New Customer</p>
+                <p></p>
                 <NewCustomer/>
             </div>
         )
