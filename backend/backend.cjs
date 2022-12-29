@@ -76,6 +76,21 @@ app.get('/db/loyalty/customerexists', async (req, res) => {
     db.query(`SELECT EXISTS(SELECT 1 FROM Customers WHERE customer_id = ${customer_id}`)
 })
 
+app.put('/db/customer/add', async (req, res) => {
+    const customer_id = req.query.customer_id
+    const first_name = req.query.first_name
+    const last_name = req.query.last_name
+    const phone_number = req.query.phone_number
+    const email = req.query.email
+    db.query(`INSERT INTO Customers (id, customer_id, first_name, last_name, phone_number, email) VALUES (NULL, '${customer_id}', '${first_name}','${last_name}','${phone_number}','${email}')`)
+})
+
+app.put('/db/loyalty/checkIn', (req, res) => {
+    const customer_id = req.query.customer_id
+    db.query(`INSERT INTO `)
+})
+//     INSERT INTO `CheckIn` (`id`, `customer_id`, `checkIn`) VALUES (NULL, '1234jas', '2022-12-04');
+// })
 
 
 // app.put('/db/loyalty/join', async (req, res) => {

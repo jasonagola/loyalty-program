@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
 import { createCustomer } from '../utils/apiRequests'
+import './newCustomer.css'
+
+const customerNotFoundMessage = "Oh no! Looks like we don't have you in our system. Sign up below"
 
 function NewCustomer() {
-    const [submit, setSubmit] = useState('')
+    const [message, setMessage] = useState(customerNotFoundMessage)
 
     const handleClick = async (e) => {
         e.preventDefault()
@@ -14,16 +17,21 @@ function NewCustomer() {
         }
         const response = await createCustomer(newCustomerInfo)
         console.log(response)
+        const form = document.getElementById('newCustomerForm')
+        form.reset()
+        setMessage(`Hey, ${response.customer.givenName}! Thanks for signing up.  Use your phone number above to check in!`)
     }
 
     return (
+        
         <div>
-            <form>
+            {message}
+            <form id='newCustomerForm'>
                 <input id='first_name' placeholder='First Name'></input>
                 <input id='last_name' placeholder='Last Name'></input>
                 <input id='phone_number' placeholder='Phone Number'></input>
                 <input id='email' placeholder='Email'></input>
-                <button onClick={handleClick}></button>
+                <button onClick={handleClick}>Join!</button>
             </form>
         </div>
 
