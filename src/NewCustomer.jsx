@@ -25,7 +25,7 @@ function NewCustomer() {
     return (
         
         <div>
-            {message}
+            <h3>{message}</h3>
             <form id='newCustomerForm'>
                 <input id='first_name' placeholder='First Name'></input>
                 <input id='last_name' placeholder='Last Name'></input>
