@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {format, isSunday} from 'date-fns'
 import './searchResults.css'
+import NewCustomer from './NewCustomer'
 
 
 
@@ -51,6 +52,7 @@ function SearchResults(props) {
             <div>
                 <p>Oh no! Looks like we have don't have you in our system!</p>
                 <p>Create New Customer</p>
+                <NewCustomer/>
             </div>
         )
     }
