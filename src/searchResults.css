@@ -1,0 +1,26 @@
+/* #searchResults {
+    border: 2px solid white;
+} */
+
+.searchResult {
+    border: 2px solid white;
+    margin: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.searchResult p {
+    align-content: center;
+    margin: 10px;
+}
+
+.checkIn {
+    justify-content: right;
+    border-radius: 10px;
+    border: 5px solid white;
+    margin: 5px;
+    margin-left: auto;
+    
+}
