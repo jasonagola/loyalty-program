@@ -16,6 +16,6 @@ export async function customerVerification(customerInfo) {
 export async function checkInVerification(customerInfo) {
     const response = await returnCheckInStatus(customerInfo)
     const checkInExists = Object.values(response[0])[0]
-    console.log(checkInExists)
+    return checkInExists
 
 }

@@ -1,65 +1,97 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import { checkInVerification, customerVerification } from '../utils/helpers'
-import {isSunday} from 'date-fns'
+import {format, isSunday, set} from 'date-fns'
+import './CheckIn.css'
+import { recordCheckIn } from '../utils/apiRequests'
 
+
+/////Probably just need to rewrite logic to create a message decider and a click decider
+////The Problem being that I can't select the particular button id to change the onClick functionality
 function CheckIn(props) {
     const [customerInfo, setCustomerInfo] = useState(props.customerInfo)
     const [checkInWindow, setCheckInWindow] = useState(false)
     const [checkedIn, setCheckedIn] = useState(false)
+    const [handleClick, setHandleClick] = useState()
     const [buttonMessage, setButtonMessage] = useState('')
 
-    // useEffect(()=> {
-    //     console.log('Use Effect Running')
-    // }, [])
+    useEffect(()=> {
+        verifyCheckIn(customerInfo)
+    }, [customerInfo])
 
-    const verifyCheckIn = async (customerInfo) => {
-        const checkInStatus = await checkInVerification(customerInfo)
-        console.log(checkInStatus)
-    }
+    useEffect(() => {
+        verifyDay()
+    }, [checkedIn, customerInfo])
 
-    const verifyDay = () => {
+    useEffect(() => {
+        updateButtonState()
+    }, [checkInWindow, checkedIn, buttonMessage])
+
+   function verifyDay() {
         const now = new Date()
         if (isSunday(now) && now.getHours()>=10 && now.getHours()<11) {
             setCheckInWindow(true)
         } else {
             setCheckInWindow(false)
         }
+        updateButtonState()
         console.log('Day Verification Running')
     }
+    
+    // setInterval(verifyDay, 1000)
 
-    // setInterval(verifyDay, 60000)
+    async function verifyCheckIn(customerInfo) {
+        const checkInStatus = await checkInVerification(customerInfo)
+        setCheckedIn((checkInStatus) ? true: false)
+        updateButtonState()
+        console.log('Changed Checked In Status')
+    }
+
+    async function checkIn() {
+        await customerVerification(customerInfo)
+        await recordCheckIn(customerInfo)
+        await verifyCheckIn(customerInfo)
+        updateButtonState()
+        console.log('Did the message change?')
+    }
 
     const updateButtonState = () => {
         // const now = new Date()
-        // const checkInButton = document.querySelector('#checkInButton')
-        // const checkInStatus = checkInVerification(customerInfo) 
+        const buttonId = `${customerInfo.id}button`
+        // const checkInButton = document.querySelector(`#${buttonId}`)
+        const checkInButton = document.getElementById(buttonId)
         if (!checkInButton) {
             return
-        }
-        if (checkInWindow) {
+        } else if (checkInWindow && !checkedIn) {
+            // checkInButton.onclick = () => checkIn
+            setButtonMessage('Check In!')
+            return
+        // } else if (checkInWindow && checkedIn) {
+        //     setButtonMessage('Already Checked In!')
+        //     return
+        } else if (checkedIn) {
+            setButtonMessage('Thanks for Checking In!')
+            checkInButton.onclick = null
+            return
+        } else if (!checkedIn) {
             checkInButton.onclick = checkIn
-            } else {
-                checkInButton.onclick = function() {
-                }
-            }
-        }
+            setButtonMessage('Check In (Test)!')
+            return
+        } else if (!checkInWindow) {
+            setButtonMessage('Come Back on Sunday')
+        } 
+    }
     
         const printStatus = () => {
-            console.log('Customer Info:'+ customerInfo.id)
+            console.log('Customer Info:'+ customerInfo.id + 'and Name' + customerInfo.givenName)
             console.log('checkInWindow:' + checkInWindow)
             console.log('Checked In?:' + checkedIn)
+            console.log(buttonMessage)
         }
-
-    const checkIn = async () => {
-        await customerVerification(customerInfo)
-        await recordCheckIn(customerInfo)
-        // addVisit(customerinfo)
-    }
 
     return (
         <div>
-            <button id='checkInButton' onClick={printStatus}>{buttonMessage}</button>
-            
+            <button id={customerInfo.id + 'button'} onClick={handleClick}>{buttonMessage}</button> 
+            {/* <button onClick={printStatus}>Print Status</button> */}
         </div>
     )
 }

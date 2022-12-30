@@ -5,9 +5,6 @@ import NewCustomer from './NewCustomer'
 import CheckIn from './CheckIn'
 import { customerVerification, checkInVerification } from '../utils/helpers'
 
-
-
-
 function SearchResults(props) {
     const [searchResults, setSearchResults] = useState([])
     const [checkInStatus, setCheckStatus] = useState(false)
@@ -16,30 +13,6 @@ function SearchResults(props) {
     useEffect(() => {
         setSearchResults(props.searchResults)
     },[props.searchResults])
-
-    // useEffect(() => {
-    //    updateButtonState()
-    // }, [searchResults])
-
-    // const updateButtonState = () => {
-    //     const now = new Date() 
-    //     const checkInButton = document.querySelector('#checkInButton')
-    //     if (!checkInButton) {
-    //         return
-    //     }
-    //     if (isSunday(now) && now.getHours()>= 10 && now.getHours()<11) {
-    //         checkInButton.onclick = checkIn
-    //         } else {
-    //             checkInButton.onclick = function() {
-    //             }
-    //         }
-    //     }
-
-    // const checkIn = (e) => {
-
-    //     customerVerification(result)
-        
-    // }
 
     if (searchResults === undefined) {
         return (
@@ -52,13 +25,15 @@ function SearchResults(props) {
     if (searchResults !== []) {
         return (
             <div id='searchResults'>
-                {searchResults.map(async (result) => {
+                {searchResults.map((result) => {
                     const customerInfo = result
                     return (
                     <div className='searchResult' key={result.id}>
-                    <p>{result.givenName} {result.familyName}</p>
-                    <CheckIn customerInfo={customerInfo} checkInStatus={checkInStatus}/>
-                    {/* <button id='checkInButton' className='checkIn' value={result.id}>Check in!</button> */}
+                        <p>{result.givenName} {result.familyName}</p>
+                        <div className='checkIn'>
+                            <CheckIn customerInfo={customerInfo}/>
+                        </div>
+                        {/* <button id='checkInButton' className='checkIn' value={result.id}>Check in!</button> */}
                     </div>
                     )
                 }

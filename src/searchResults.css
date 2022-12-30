@@ -1,7 +1,3 @@
-/* #searchResults {
-    border: 2px solid white;
-} */
-
 .searchResult {
     border: 2px solid white;
     margin: 10px;
@@ -11,6 +7,7 @@
     align-items: center;
 
 }
+
 .searchResult p {
     align-content: center;
     margin: 10px;
@@ -22,5 +19,9 @@
     border: 5px solid white;
     margin: 5px;
     margin-left: auto;
-    
+}
+
+#checkInButton {
+    justify-content: right;
+    margin-left: auto
 }

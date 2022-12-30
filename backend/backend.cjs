@@ -36,7 +36,8 @@ app.get('/searchCustomer', async (req, res) => {
                     fuzzy: searchTerm
                   }
                 }
-              }
+              },
+              'limit': 5
             });
         console.log(response.result)
         const responseString = JSONBig.stringify(response.result)
@@ -106,7 +107,7 @@ app.put('/db/customer/add', async (req, res) => {
 app.put('/db/loyalty/checkIn', (req, res) => {
     const customer_id = req.query.customer_id
     const checkInDate = req.query.checkInDate
-    db.query(`INSERT INTO CheckIn ('customer_id', 'checkIn') VALUES  ('${customer_id}','${checkInDate}')`, (err, result) => {
+    db.query(`INSERT INTO CheckIn (customer_id, checkIn) VALUES ('${customer_id}',${checkInDate})`, (err, result) => {
         if (err) {
             console.log(err)
             res.send(err)
@@ -130,12 +131,14 @@ app.put('/db/loyalty/checkIn', (req, res) => {
 
 app.get('/db/loyalty/checkInStatus', (req, res) => {
     const customer_id = req.query.customer_id
-    db.query(`SELECT EXISTS(SELECT 1 FROM CheckIn WHERE customer_id = '${customer_id}')`)
-    if (err) {
-        console.log(err)
-        return res.send(err)
-    } else {
-        console.log(result)
-        res.send(result)
-    }
+    db.query(`SELECT EXISTS(SELECT 1 FROM CheckIn WHERE customer_id = '${customer_id}')`, (err, result) => {
+        if (err) {
+            console.log(err)
+            return res.send(err)
+        } else {
+            console.log(result)
+            res.send(result)
+        }
+    })
+    
 })

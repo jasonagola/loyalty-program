@@ -29,7 +29,6 @@ function SearchCustomer() {
             <p>Check in below!</p>
             <input onChange={handleChange} placeholder='Search by Phone Number'></input>
             {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
-
             <SearchResults searchResults={searchResults}/>
         </div>
     )

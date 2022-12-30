@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {format} from 'date-fns'
 const devBackend = 'http://localhost:4000'
 
 export async function searchCustomerByPhone(searchTerm) {
@@ -82,12 +83,11 @@ export async function addCustomer(customerInfo) {
 }
 
 export async function returnCheckInStatus(customerInfo) {
-    const customer_id = customerInfo.id
     const options = {
         method: 'GET',
         url: devBackend + '/db/loyalty/checkInStatus',
         params: {
-            customer_id: id,
+            customer_id: customerInfo.id,
         }
     }
     const response = await axios.request(options)
@@ -101,12 +101,12 @@ export async function returnCheckInStatus(customerInfo) {
 
 export async function recordCheckIn(customerInfo) {
     const customer_id = customerInfo.id
-    const checkInDate = format(new Date(), 'YYYY-MM-dd')
     const options = {
         method: 'PUT',
         url: devBackend + '/db/loyalty/checkIn',
         params: {
-            customer_id: id,
+            customer_id: customer_id,
+            checkInDate: format(new Date(), 'yyyy-MM-dd')
         }
     }
     const response = await axios.request(options)
