@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {format} from 'date-fns'
-const backendUrl = 'http://193.46.198.149/backend'
+const backendUrl = 'https://bike.jasonagola.dev/backend'
 
 export async function searchCustomerByPhone(searchTerm) {
     const options = {
