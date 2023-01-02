@@ -1,11 +1,11 @@
 import axios from 'axios'
 import {format} from 'date-fns'
-const devBackend = 'http://localhost:4000'
+const backendUrl = 'http://193.46.198.149/backend'
 
 export async function searchCustomerByPhone(searchTerm) {
     const options = {
         method: 'GET',
-        url: devBackend + '/searchCustomer',
+        url: backendUrl + '/square/searchCustomer',
         params: {
             searchTerm: searchTerm 
         }
@@ -22,7 +22,7 @@ export async function createCustomer(newCustomerInfo) {
     const {first_name, last_name, phone_number, email} = newCustomerInfo
     const options = {
         method: 'PUT',
-        url: devBackend + '/square/createCustomer',
+        url: backendUrl + '/square/createCustomer',
         params: {
             first_name: first_name,
             last_name: last_name,
@@ -46,7 +46,7 @@ export async function createCustomer(newCustomerInfo) {
 export async function checkCustomerExists(customer_id) {
     const options = {
         method: 'GET',
-        url: devBackend + '/db/customer/customerExists',
+        url: backendUrl + '/db/customer/customerExists',
         params: {
             customer_id: customer_id
         },
@@ -64,7 +64,7 @@ export async function addCustomer(customerInfo) {
     const {id, givenName, familyName, phoneNumber, emailAddress} = customerInfo
     const options = {
         method: 'PUT',
-        url: devBackend + '/db/customer/add',
+        url: backendUrl + '/db/customer/add',
         params: {
             customer_id: id,
             first_name: givenName,
@@ -85,7 +85,7 @@ export async function addCustomer(customerInfo) {
 export async function returnCheckInStatus(customerInfo) {
     const options = {
         method: 'GET',
-        url: devBackend + '/db/loyalty/checkInStatus',
+        url: backendUrl + '/db/loyalty/checkInStatus',
         params: {
             customer_id: customerInfo.id,
         }
@@ -103,7 +103,7 @@ export async function recordCheckIn(customerInfo) {
     const customer_id = customerInfo.id
     const options = {
         method: 'PUT',
-        url: devBackend + '/db/loyalty/checkIn',
+        url: backendUrl + '/db/loyalty/checkIn',
         params: {
             customer_id: customer_id,
             checkInDate: format(new Date(), 'yyyy-MM-dd')
