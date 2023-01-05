@@ -1,4 +1,5 @@
 import { addCustomer, checkCustomerExists, returnCheckInStatus } from "./apiRequests";
+import { isBefore } from "date-fns";
 
 export async function customerVerification(customerInfo) {
     const response = await checkCustomerExists(customerInfo.id)
@@ -19,3 +20,14 @@ export async function checkInVerification(customerInfo) {
     return checkInExists
 
 }
+
+//     const i = 0
+//     const j = 0
+//     const sortedDates = []
+//     while (i<left.length || j < right.length) {
+//         if (i === left.length) {
+//             sortedDates.push(right[j])
+//         }
+//     }
+// }
+

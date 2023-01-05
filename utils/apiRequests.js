@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {format} from 'date-fns'
-const backendUrl = 'https://bike.jasonagola.dev/backend'
+const deployed = 'https://bike.jasonagola.dev/backend'
+const devUrl = 'http://localhost:8800/backend'
+const backendUrl = devUrl
 
 export async function searchCustomerByPhone(searchTerm) {
     const options = {
@@ -119,4 +121,52 @@ export async function recordCheckIn(customerInfo) {
 }
 
 
+/////
+export async function addRide(rideInfo) {
+    const options = {
+        method: 'PUT',
+        url: backendUrl + '/db/rides/addRide',
+        params: {
+            rideInfo: rideInfo
+            // date: date,
+            // start: start,
+            // end: end,
+            // processed: processed
+        }
+    }
+    const response = await axios.request(options)
+    try {
+        console.log(response.data)
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
 
+
+export async function getRidesThisMonth() {
+    const options = {
+        method:'GET',
+        url: backendUrl + '/db/rides/ridesThisMonth'
+    }
+    const response = await axios.request(options)
+    try {
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+
+export async function isThereARideToday() {
+    const options = {
+        method: 'GET',
+        url: backendUrl + '/db/rides/rideToday'
+    }
+    const response = axios.request(options)
+    try {
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
