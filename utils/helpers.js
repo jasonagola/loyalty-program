@@ -1,5 +1,5 @@
 import { addCustomer, checkCustomerExists, returnCheckInStatus } from "./apiRequests";
-import { isBefore } from "date-fns";
+import { format, isBefore } from "date-fns";
 
 export async function customerVerification(customerInfo) {
     const response = await checkCustomerExists(customerInfo.id)
@@ -31,3 +31,6 @@ export async function checkInVerification(customerInfo) {
 //     }
 // }
 
+export function dateToDb(date) {
+    return format(new Date(date), 'EEEE MMM dd, yyyy')
+}
