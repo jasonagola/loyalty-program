@@ -27,11 +27,12 @@ function CheckIn(props) {
     }, [checkInWindow, checkedIn, buttonMessage])
 
    async function verifyDay() {
+       ////New Ride Date Data from db.  Push upstream with props to prevent unnecessary db checkin. 
+       // Can still allow for search and new customer entry
+
         const now = new Date()
         const ride = await isThereARideToday()
         console.log(ride)
-        ////Need to return from database if ride exists
-        ///Set start and finish times 
         if (isSunday(now) && now.getHours()>=10 && now.getHours()<11) {
             setCheckInWindow(true)
         } else {
@@ -40,8 +41,6 @@ function CheckIn(props) {
         updateButtonState()
         console.log('Day Verification Running')
     }
-    
-    // setInterval(verifyDay, 1000)
 
     async function verifyCheckIn(customerInfo) {
         const checkInStatus = await checkInVerification(customerInfo)
