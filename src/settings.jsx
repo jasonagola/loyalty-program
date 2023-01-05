@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Ride from './ride'
 import {addRide, getRidesThisMonth} from '../utils/apiRequests'
 import {format, isLeapYear, getDay, isBefore, parseISO} from 'date-fns'
 import './settings.css'
@@ -74,13 +75,14 @@ function Settings() {
                     <div id='ridesThisMonth'>
                         {ridesThisMonth.map((ride) => {
                             return (
-                                <div className='rides' id={ride.ride_id} key={ride.ride_id}>
-                                    <p>Ride: {format(new Date(ride.ride_date), 'EEEE MMM dd, yyyy')}</p>
-                                    <p>Ride Window: {ride.start_time}-{ride.end_time}</p>
-                                    <p>Loyalty Reward: {ride.ride_value}</p>
-                                    <button>Edit</button>
-                                    <button>Delete</button>
-                                </div>
+                                <Ride ride={ride} key={ride.ride_id}/>
+                                // <div className='rides' id={ride.ride_id} key={ride.ride_id}>
+                                //     <p>Ride: {format(new Date(ride.ride_date), 'EEEE MMM dd, yyyy')}</p>
+                                //     <p>Ride Window: {ride.start_time}-{ride.end_time}</p>
+                                //     <p>Loyalty Reward: {ride.ride_value}</p>
+                                //     <button>Edit</button>
+                                //     <button>Delete</button>
+                                // </div>
                             )
                         }
                     )}
