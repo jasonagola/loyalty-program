@@ -12,11 +12,17 @@ This is a simple "check-in" screen for people who attend a weekly Sunday casual 
 * Square API
 
 ## Roadmap
-- [ ] Add control page for ease of use and for manipulation of Check-In times/Dynamic Rewards Etc. 
+- [ ] User Auth
+    - [ ] Public User
+    - [ ] Admin with access to ride data changes
+- [x] Add control page for ease of use and for manipulation of Check-In times/Dynamic Rewards Etc. 
+    - [x] Sort By Date Default
+    - [ ] Editable form
+    - [ ] Delete with Modal Warning
 - [ ] Add dynamic rewards for different values on different days i.e Benefit Rides, Non-traditional or event attendance.
     - [ ] Temperature Based Bonus
     - [ ] Time Manipulation
-    - [ ] Discount Value Manipulation
+    - [x] Manual Discount Value Manipulation
 - [ ] Email update with current rewards accumulation
 - [ ] Welcome email for sign up and resource dispersal
 

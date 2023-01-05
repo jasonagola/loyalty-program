@@ -170,3 +170,18 @@ export async function isThereARideToday() {
         console.log(error)
     }
 }
+
+export async function updateRide(rideInfo) {
+    const options = {
+        method: 'GET',
+        url: backendUrl + '/db/rides/updateRide',
+        params: rideInfo
+    } 
+    const response = axios.request(options)
+    try {
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+    
+}
