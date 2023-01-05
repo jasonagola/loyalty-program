@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react'
 import { checkInVerification, customerVerification } from '../utils/helpers'
 import {format, isSunday, set} from 'date-fns'
 import './CheckIn.css'
-import { recordCheckIn } from '../utils/apiRequests'
+import { isThereARideToday, recordCheckIn } from '../utils/apiRequests'
 
 
 /////Probably just need to rewrite logic to create a message decider and a click decider
@@ -26,8 +26,12 @@ function CheckIn(props) {
         updateButtonState()
     }, [checkInWindow, checkedIn, buttonMessage])
 
-   function verifyDay() {
+   async function verifyDay() {
         const now = new Date()
+        const ride = await isThereARideToday()
+        console.log(ride)
+        ////Need to return from database if ride exists
+        ///Set start and finish times 
         if (isSunday(now) && now.getHours()>=10 && now.getHours()<11) {
             setCheckInWindow(true)
         } else {
