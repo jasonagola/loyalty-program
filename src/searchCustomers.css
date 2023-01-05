@@ -1,0 +1,7 @@
+#searchBar {
+    width: 200px;
+}
+
+::placeholder {
+    text-align: center;
+}

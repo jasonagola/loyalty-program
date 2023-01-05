@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { searchCustomerByPhone } from '../utils/apiRequests';
 import SearchResults from './searchResults'
+import './searchCustomers.css'
+import Settings from './settings';
 
 function SearchCustomer() {
     const [searchTerm, setSearchTerm] = useState('')
@@ -27,9 +29,10 @@ function SearchCustomer() {
         <div>
             <h4>Every Sunday earn 5% towards a monthly coupon just by riding your bike!</h4>
             <p>Check in below!</p>
-            <input onChange={handleChange} placeholder='Search by Phone Number'></input>
+            <input id='searchBar' onChange={handleChange} placeholder='Search by Phone Number'></input>
             {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
             <SearchResults searchResults={searchResults}/>
+            <Settings/>
         </div>
     )
 }

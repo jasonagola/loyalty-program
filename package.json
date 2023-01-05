@@ -17,6 +17,7 @@
     "express": "^4.18.2",
     "json-bigint": "^1.0.0",
     "mysql": "^2.18.1",
+    "node-cron": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "square": "^25.0.0"
