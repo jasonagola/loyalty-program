@@ -3,7 +3,6 @@ import {format, isSunday} from 'date-fns'
 import './searchResults.css'
 import NewCustomer from './NewCustomer'
 import CheckIn from './CheckIn'
-import { customerVerification, checkInVerification } from '../utils/helpers'
 
 function SearchResults(props) {
     const [searchResults, setSearchResults] = useState([])

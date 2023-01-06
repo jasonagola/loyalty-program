@@ -1,12 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { searchCustomerByPhone } from '../utils/apiRequests';
 import SearchResults from './searchResults'
 import './searchCustomers.css'
 import Settings from './settings';
+import { rideTodayVerification } from '../utils/helpers';
 
 function SearchCustomer() {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchResults, setSearchResults] = useState([])
+    const [rideWindowState, setRideWindowState] = useState(false)
+    const [rideInfo, setRideInfo] = useState([])
+
+    useEffect(() => {
+        setRideState()
+    },[])
+
+    async function setRideState() {
+        const {rideInfo, rideStatus} = await rideTodayVerification()
+        setRideInfo(rideInfo)
+        setRideWindowState(rideStatus)
+    }
 
     const handleChange = async (e) => {
         // setSearchTerm(e.target.value)

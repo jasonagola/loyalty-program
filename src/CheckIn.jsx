@@ -2,11 +2,9 @@ import React, {useEffect, useState, useCallback} from 'react'
 import { checkInVerification, customerVerification } from '../utils/helpers'
 import {format, isSunday, set} from 'date-fns'
 import './CheckIn.css'
-import { isThereARideToday, recordCheckIn } from '../utils/apiRequests'
+import { getRideToday, recordCheckIn } from '../utils/apiRequests'
 
 
-/////Probably just need to rewrite logic to create a message decider and a click decider
-////The Problem being that I can't select the particular button id to change the onClick functionality
 function CheckIn(props) {
     const [customerInfo, setCustomerInfo] = useState(props.customerInfo)
     const [checkInWindow, setCheckInWindow] = useState(false)
@@ -31,7 +29,7 @@ function CheckIn(props) {
        // Can still allow for search and new customer entry
 
         const now = new Date()
-        const ride = await isThereARideToday()
+        const ride = await getRideToday()
         console.log(ride)
         if (isSunday(now) && now.getHours()>=10 && now.getHours()<11) {
             setCheckInWindow(true)

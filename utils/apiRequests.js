@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {format} from 'date-fns'
+import { dateToDb } from './helpers'
 const deployed = 'https://bike.jasonagola.dev/backend'
 const devUrl = 'http://localhost:8800/backend'
 const backendUrl = devUrl
@@ -128,10 +129,6 @@ export async function addRide(rideInfo) {
         url: backendUrl + '/db/rides/addRide',
         params: {
             rideInfo: rideInfo
-            // date: date,
-            // start: start,
-            // end: end,
-            // processed: processed
         }
     }
     const response = await axios.request(options)
@@ -158,30 +155,48 @@ export async function getRidesThisMonth() {
 }
 
 
-export async function isThereARideToday() {
-    const options = {
-        method: 'GET',
-        url: backendUrl + '/db/rides/rideToday'
-    }
-    const response = axios.request(options)
-    try {
-        return response.data
-    } catch(error) {
-        console.log(error)
-    }
-}
+// export async function isThereARideToday() {
+//     const options = {
+//         method: 'GET',
+//         url: backendUrl + '/db/rides/rideTodayExists'
+//     }
+//     const response = await axios.request(options)
+//     try {
+//         return response.data
+//     } catch(error) {
+//         console.log(error)
+//     }
+// }
 
 export async function updateRide(rideInfo) {
     const options = {
         method: 'GET',
         url: backendUrl + '/db/rides/updateRide',
-        params: rideInfo
+        params: {
+            rideInfo: rideInfo
+        }
     } 
     const response = axios.request(options)
     try {
         return response.data
     } catch(error) {
         console.log(error)
+    }   
+}
+
+export async function getRideToday() {
+    const options = {
+        method: 'GET',
+        url: backendUrl + '/db/rides/getRide',
+        params: {
+            date: dateToDb(new Date())
+        }
     }
-    
+    const response = await axios.request(options)
+    try {
+        console.log(response.data)
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
 }

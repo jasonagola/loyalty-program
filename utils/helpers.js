@@ -1,4 +1,4 @@
-import { addCustomer, checkCustomerExists, returnCheckInStatus } from "./apiRequests";
+import { addCustomer, checkCustomerExists, getRideToday, returnCheckInStatus } from "./apiRequests";
 import { format, isBefore } from "date-fns";
 
 export async function customerVerification(customerInfo) {
@@ -18,7 +18,36 @@ export async function checkInVerification(customerInfo) {
     const response = await returnCheckInStatus(customerInfo)
     const checkInExists = Object.values(response[0])[0]
     return checkInExists
+}
 
+export async function rideTodayVerification() {
+    const rideWindow = false
+    let rideInfo = {}
+    const response = await getRideToday()
+    if (response.length == 0) {
+        return {rideWindow:false}
+    } else {
+        let rideInfo = response[0]
+        const start = timeToSeconds(rideInfo.start_time)
+        console.log(start)
+        const end = timeToSeconds(rideInfo.end_time)
+        console.log(end)
+        const now = timeToSeconds(format(new Date(), 'HH:mm:ss'))
+        console.log(now)
+        if(now > start && now < end) {
+            return {rideInfo, rideWindow: true}
+        } else {
+            return {rideWindow: false}
+            console.log('Not in time window')
+        }
+
+    }
+    
+
+  
+    //     return {rideInfo, rideStatus}
+    // }
+    // return {rideInfo, rideStatus}
 }
 
 //     const i = 0
@@ -32,5 +61,11 @@ export async function checkInVerification(customerInfo) {
 // }
 
 export function dateToDb(date) {
-    return format(new Date(date), 'EEEE MMM dd, yyyy')
+    return format(new Date(date), 'yyyy-MM-dd')
+}
+
+export function timeToSeconds(timeString) {
+    const [hours, minutes, seconds] = timeString.split(':')
+    const timeInSeconds = ((360*hours) + (60*minutes) + seconds)
+    return timeInSeconds
 }
