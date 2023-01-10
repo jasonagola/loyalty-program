@@ -1,5 +1,6 @@
 import './App.css'
 import SearchCustomer from './searchCustomer'
+import Login from './Login'
 
 function App() {
   
@@ -10,8 +11,9 @@ function App() {
       <h2>Local Bike Shop NFK</h2>
       <div>
         <SearchCustomer/>
+        <Login/>
       </div>
-    </div>
+                </div>
   )
 }
 
