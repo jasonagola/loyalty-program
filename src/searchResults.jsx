@@ -5,6 +5,7 @@ import NewCustomer from './NewCustomer'
 import CheckIn from './CheckIn'
 
 function SearchResults(props) {
+    const rideWindowState = props.rideWindowState
     const [searchResults, setSearchResults] = useState([])
     const [checkInStatus, setCheckStatus] = useState(false)
    

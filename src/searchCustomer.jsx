@@ -16,17 +16,18 @@ function SearchCustomer() {
     },[])
 
     async function setRideState() {
-        const {rideInfo, rideStatus} = await rideTodayVerification()
+        const {rideInfo, rideWindow} = await rideTodayVerification()
+        console.log(rideInfo, rideWindow)
         setRideInfo(rideInfo)
-        setRideWindowState(rideStatus)
+        setRideWindowState(rideWindow)
     }
 
     const handleChange = async (e) => {
         // setSearchTerm(e.target.value)
-        if (e.target.value.length<4) {
+        if (e.target.value.length<4 && rideWindowState) {
             setSearchResults([])
         }
-        if (e.target.value.length>= 4) {
+        if (e.target.value.length>= 4 && rideWindowState) {
             const response = await searchCustomerByPhone(e.target.value)
             setSearchResults(response)
         }
@@ -41,10 +42,16 @@ function SearchCustomer() {
     return (
         <div>
             <h4>Every Sunday earn 5% towards a monthly coupon just by riding your bike!</h4>
-            <p>Check in below!</p>
-            <input id='searchBar' onChange={handleChange} placeholder='Search by Phone Number'></input>
-            {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
-            <SearchResults searchResults={searchResults}/>
+            {rideWindowState ? (
+                <div>
+                <p>Check in below!</p>
+                <input id='searchBar' onChange={handleChange} placeholder='Search by Phone Number'></input>
+                {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
+                <SearchResults rideWindowState={rideWindowState} searchResults={searchResults}/>
+                </div>
+            ): (
+                <div></div>
+            )}
             <Settings/>
         </div>
     )

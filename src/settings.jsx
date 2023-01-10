@@ -3,7 +3,6 @@ import Ride from './ride'
 import {addRide, getRidesThisMonth} from '../utils/apiRequests'
 import {format, isLeapYear, getDay, isBefore, parseISO} from 'date-fns'
 import './settings.css'
-// import { dateQuickSort } from '../utils/helpers';
 
 
 function Settings() {
@@ -59,7 +58,8 @@ function Settings() {
             </div>
             <div id='newRide'>
                 <h3>Add a New Ride</h3>
-                <p>Please pay attention to existing rides. Existing Rides may be edited with apporpriate permission</p>
+                <div id='newRideForm'>
+                <label htmlFor='rideDate' name='rideDate'>Ride Date</label>
                 <input className='rideDate' type='date' required></input>
                 <label htmlFor='startTime'>Ride Window Start</label>
                 <input className='startTime' type='time' name='startTime'></input>
@@ -68,10 +68,12 @@ function Settings() {
                 <label htmlFor='rideValue'>Discount Value</label>
                 <input className='rideValue' type='number' name='rideValue'></input>
                 <button onClick={handleAddRide}>Set Ride</button>
+                </div>
             </div>
             
             <div>
                 <h2>Rides Scheduled this Month</h2>
+                <p>Please pay attention to existing rides. Existing Rides may be edited with apporpriate permission</p>
                     <div id='ridesThisMonth'>
                         {ridesThisMonth.map((ride) => {
                             return (

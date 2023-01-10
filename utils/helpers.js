@@ -37,7 +37,7 @@ export async function rideTodayVerification() {
         if(now > start && now < end) {
             return {rideInfo, rideWindow: true}
         } else {
-            return {rideWindow: false}
+            return {rideInfo: 'No Ride', rideWindow: false}
             console.log('Not in time window')
         }
 

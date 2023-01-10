@@ -1,3 +1,33 @@
 .rides {
-    border: 1px black solid;
+    border: 2px white solid;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.rides button {
+    margin: 5px;
+}
+
+#newRide {
+    border: 2px white solid;
+    border-radius: 2px;
+    transition: border-width 0.1s linear;
+}
+
+#newRideForm {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#newRideForm label {
+    margin-right: auto;
+}
+
+#newRideForm input {
+    margin-bottom: 20px;
+}
+
+#newRide:hover {
+    border-width: 4px;
 }

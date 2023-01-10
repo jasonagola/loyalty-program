@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {format} from 'date-fns'
 import { updateRide } from '../utils/apiRequests'
 
@@ -16,9 +16,8 @@ function Ride(props) {
             end: document.querySelector(`[id='${ride.ride_id}'] .endTime`).value,
             value: document.querySelector(`[id='${ride.ride_id}'] .rideValue`).value,
         }
-        console.log(rideInfo)
         const response = await updateRide(rideInfo)
-        reloadRides()
+        await reloadRides()
         setEdit(false)
     }
 
