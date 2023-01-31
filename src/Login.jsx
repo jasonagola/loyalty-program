@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AuthService from './services/authService';
 
 function Login() {
     const [user, setUser] = useState({
@@ -20,6 +21,10 @@ function Login() {
         e.preventDefault()
     }
 
+    const handleButton = () => {
+        AuthService.login
+    }
+
     return (
         <div id='login'>
             <form onSubmit={handleLogin}> 
@@ -28,6 +33,8 @@ function Login() {
                 <label htmlFor='password'>Password:</label>
                 <input type='text' id='password' name='password' onChange={handleChangePassword}></input>
             </form>
+
+            <button onClick={handleButton}>Click Me Please!</button>
         </div>
     )
 }
