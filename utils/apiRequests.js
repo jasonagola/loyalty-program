@@ -140,6 +140,23 @@ export async function addRide(rideInfo) {
     }
 }
 
+export async function deleteRide(rideInfo) {
+    const options = { 
+        method: 'DELETE',
+        url: backendUrl + '/db/rides/delete',
+        params: {
+            rideInfo: rideInfo
+        }
+    }
+    const response  = await axios.request(options)
+    try {
+        console.log(response.data)
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
+
 
 export async function getRidesThisMonth() {
     const options = {

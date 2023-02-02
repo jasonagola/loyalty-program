@@ -8,7 +8,7 @@ function Ride(props) {
     const reloadRides = props.reload
     const [edit, setEdit] = useState(false)
 
-    const handleSave = async () => {
+    const getRideInfo = () => {
         const rideInfo = {
             id: ride.ride_id,
             date: document.querySelector(`[id='${ride.ride_id}'] .rideDate`).value,
@@ -16,9 +16,20 @@ function Ride(props) {
             end: document.querySelector(`[id='${ride.ride_id}'] .endTime`).value,
             value: document.querySelector(`[id='${ride.ride_id}'] .rideValue`).value,
         }
+        return rideInfo
+    }
+
+    const handleSave = async () => {
+        const rideInfo = getRideInfo()
+        console.log(rideInfo)
         const response = await updateRide(rideInfo)
-        await reloadRides()
+        reloadRides()
         setEdit(false)
+    }
+
+    const deleteRide = async () => {
+        const rideInfo = getRideInfo()
+        deleteRide(rideInfo.id)
     }
 
     return (
@@ -41,7 +52,7 @@ function Ride(props) {
                 <p>Ride Window: {ride.start_time}-{ride.end_time}</p>
                 <p>Loyalty Reward: {ride.ride_value}</p>
                 <button onClick={() => setEdit(true)}>Edit</button>
-                <button>Delete</button>
+                <button onClick={deleteRide}>Delete</button>
             </div>
             )}            
         </div>
