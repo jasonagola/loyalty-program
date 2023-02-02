@@ -2,7 +2,7 @@ import axios from 'axios'
 import {format} from 'date-fns'
 import { dateToDb } from './helpers'
 const deployed = 'https://bike.jasonagola.dev/backend'
-const devUrl = 'http://localhost:8800/backend'
+const devUrl = 'http://localhost:8800'
 const backendUrl = devUrl
 
 export async function searchCustomerByPhone(searchTerm) {
@@ -125,8 +125,8 @@ export async function recordCheckIn(customerInfo) {
 /////
 export async function addRide(rideInfo) {
     const options = {
-        method: 'PUT',
-        url: backendUrl + '/db/rides/addRide',
+        method: 'POST',
+        url: backendUrl + '/loyalty/Ride',
         params: {
             rideInfo: rideInfo
         }
@@ -144,7 +144,7 @@ export async function addRide(rideInfo) {
 export async function getRidesThisMonth() {
     const options = {
         method:'GET',
-        url: backendUrl + '/db/rides/ridesThisMonth'
+        url: backendUrl + '/loyalty/listRides'
     }
     const response = await axios.request(options)
     try {
@@ -187,7 +187,7 @@ export async function updateRide(rideInfo) {
 export async function getRideToday() {
     const options = {
         method: 'GET',
-        url: backendUrl + '/db/rides/getRide',
+        url: backendUrl + '/loyalty/ride',
         params: {
             date: dateToDb(new Date())
         }

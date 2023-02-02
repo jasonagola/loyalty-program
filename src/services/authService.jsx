@@ -9,7 +9,7 @@ class AuthService {
     login(username, password) {
         const options = {
             method: "POST",
-            url: backend + '/users/login',
+            url: backend + '/auth',
             params: {
                 username: username,
                 password: password
