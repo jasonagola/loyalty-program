@@ -1,24 +1,24 @@
-import React, {useState, useRef, useEffect, useContext} from 'react';
-import AuthContext from './context/authProvider';
-import axios from 'axios'
-import AuthService from './services/authService';
+import React, {useState, useRef, useEffect} from 'react';
+import useAuth from './hooks/useAuth';
+import {Link, useNavigate, useLocation } from 'react-router-dom';
+
+import axios from './api/axios'
 const LOGIN_URL = '/auth';
-const devURL = 'http://localhost:8800'
-const buildURL = 'https://jasonagola.dev'
-const backendURL = devURL
+
 
 function Login() {
-    const { setAuth } = useContext(AuthContext)
+    const { setAuth } = useAuth();
 
-    const errRef = useRef()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/"
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     // const usernameRef = useRef()
     // const passwordRef = useRef()
 
     const [message, setMessage] = useState()
-    const [success, setSuccess] = useState(false)
 
     useEffect(() => {
         setMessage('')
@@ -29,30 +29,23 @@ function Login() {
         e.preventDefault();
         const options = {
             method: 'POST',
-            url: backendURL + LOGIN_URL,
-            data: {
-                username, password
-            },
-            // headers: 
-            //     {"Content-Type": "application.json"},
-            //     withCredentials: true
-        }
+            url: LOGIN_URL,
+            data: { username, password },
+            headers: 
+                {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
         const response = await axios.request(options)
         try {
-            // const repsonse = await axios.post(
-            //     backendURL + LOGIN_URL,
-            //     JSON.stringify({username, password}),
-            //     {
-            //         headers: { 'Content-Type': 'application.json'},
-            //         withCredentials: true
-            //     });
             console.log(JSON.stringify(response?.data))
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth(username, password, roles, accessToken)
             setUsername('')
             setPassword('')
+            navigate(from, {replace: true});
         } catch (error) {
+            console.log('I think there was an error')
             console.log(error)
             if (!error?.response) {
                 setMessage('No Server Response')
@@ -67,31 +60,24 @@ function Login() {
             }
         }
 
-    const handleButton = () => {
-        AuthService.login
-    }
+    // const handleButton = () => {
+    //     AuthService.login
+    // }
 
     return (
-        <>
-        {success ? (
-            <div>
-                <h1>Log In Successful!</h1>
-            </div>
-        ) : (
         <div id='login'>
+            <p>{message}</p>
             <form onSubmit={handleLogin}> 
                 <label htmlFor='username'>Username:</label>
                 <input type='text' id='username' name='username' value={username} autoComplete="off" onChange={(e) => setUsername(e.target.value)} required={true}></input>
                 <label htmlFor='password'>Password:</label>
                 <input type='password' id='password' name='password' value={password} autoComplete="off" onChange={(e) => setPassword(e.target.value)}  required={true}></input>
-                <p ref={errRef} className={message ? "errmsg":"offscreen"}>{message}</p>
+                <p className={message ? "errmsg":"offscreen"}>{message}</p>
                 <button>Log In</button>
             </form>
 
-            <button onClick={handleButton}>Click Me Please!</button>
+            {/* <button onClick={handleButton}>Click Me Please!</button> */}
         </div>
-    )}
-    </> 
     )
 }
 
