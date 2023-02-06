@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect, useContext} from 'react';
 import AuthContext from './context/authProvider';
-import axios from './api/axios'
+import axios from 'axios'
 import AuthService from './services/authService';
 const LOGIN_URL = '/auth';
 const devURL = 'http://localhost:8800'
@@ -27,29 +27,31 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        // const options = {
-        //     method: 'POST',
-        //     url: backendURL + LOGIN_URL,
-        //     data: {
-        //         username, password
-        //     },
-        //     // headers: 
-        //     //     {"Content-Type": "application.json"},
-        //     //     withCredentials: true
-        // }
-        // const response = await axios.request(options)
+        const options = {
+            method: 'POST',
+            url: backendURL + LOGIN_URL,
+            data: {
+                username, password
+            },
+            // headers: 
+            //     {"Content-Type": "application.json"},
+            //     withCredentials: true
+        }
+        const response = await axios.request(options)
         try {
-            const repsonse = await axios.post(
-                LOGIN_URL,
-                JSON.stringify({username, password}),
-                {
-                    headers: { 'Content-Type': 'application.json'},
-                    withCredentials: true
-                });
+            // const repsonse = await axios.post(
+            //     backendURL + LOGIN_URL,
+            //     JSON.stringify({username, password}),
+            //     {
+            //         headers: { 'Content-Type': 'application.json'},
+            //         withCredentials: true
+            //     });
             console.log(JSON.stringify(response?.data))
             const accessToken = response?.data?.accessToken;
-            const roles = repsonse?.data?.roles;
+            const roles = response?.data?.roles;
             setAuth(username, password, roles, accessToken)
+            setUsername('')
+            setPassword('')
         } catch (error) {
             console.log(error)
             if (!error?.response) {
