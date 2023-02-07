@@ -24,14 +24,14 @@ const ROLES = {
 
         <Route element={<RequireAuth/>}>
           
-        </Route>
+      </Route>
 
-        {/* <Route element={<RequireAuth allowedRoles={[2001]}/>}> */}
-          <Route path='portal' element={<Portal/>} />
+      <Route element={<RequireAuth allowedRoles={[2001]}/>}>
+        <Route path='portal' element={<Portal/>} />
           {/* <Route path='settings' element={<Settings/>}/>  */}
-          <Route />
-          <Route /> 
-        {/* </Route> */}
+          {/* <Route />
+          <Route />  */}
+      </Route>
       </Route>
     </Routes>
   )

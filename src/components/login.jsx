@@ -41,16 +41,10 @@ function Login() {
             // console.log(JSON.stringify(response?.data))
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
-            console.log(roles)
-            setAuth(username, password, roles, accessToken)
+            setAuth({username, password, roles, accessToken})
             setUsername('')
             setPassword('')
-            // if (from == '/') {
-            //     console.log('You came from the sign in screen')
-            navigate('portal')
-            // } else {
-            //     navigate(from, {replace: true});
-            // }
+            navigate(from, {replace: true});
         } catch (error) {
             console.log('I think there was an error')
             console.log(error)

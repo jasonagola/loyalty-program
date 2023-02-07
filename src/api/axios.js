@@ -5,5 +5,14 @@ const buildURL = 'https://jasonagola.dev'
 const backendURL = devURL
 
 export default axios.create({
-    baseURL: 'http://localhost:8800'
+    baseURL: backendURL
 });
+
+export const axiosPrivate = axios.create({
+    baseURL: backendURL,
+    headers: {
+        'Content-Type': 'application/json'
+        },
+        withCredentials: true
+    }
+);
