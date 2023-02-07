@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from './axios'
 import {format} from 'date-fns'
-import { dateToDb } from './helpers'
+import { dateToDb } from '../../utils/helpers'
 const deployed = 'https://bike.jasonagola.dev/backend'
 const devUrl = 'http://localhost:8800'
 const backendUrl = devUrl

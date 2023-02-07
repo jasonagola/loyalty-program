@@ -5,8 +5,9 @@ import Login from './components/login'
 import Layout from './components/layout';
 import Unauthorized from './components/unathorized';
 import Portal from './components/portal'
-import Settings from './settings';
+import Settings from './loyalty/settings';
 import Home from './components/home';
+import Missing from './components/missing';
 
 
 function App() {
@@ -21,18 +22,14 @@ const ROLES = {
         <Route path='/' element={<Home/>}/>
         <Route path='login' element={<Login/>} />
         <Route path='unauthorized' element={<Unauthorized/>}/>
-
-        <Route element={<RequireAuth/>}>
-          
       </Route>
 
-      <Route element={<RequireAuth allowedRoles={[2001]}/>}>
-        <Route path='portal' element={<Portal/>} />
-          {/* <Route path='settings' element={<Settings/>}/>  */}
-          {/* <Route />
-          <Route />  */}
+      <Route element={<RequireAuth allowedRoles={2001}/>}>
+        <Route path='portal' element={<Portal/>}/>
+        <Route path='portal/settings' element={<Settings/>}/> 
       </Route>
-      </Route>
+
+      <Route path='*' element={<Missing/>}/>
     </Routes>
   )
 }

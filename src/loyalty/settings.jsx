@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom'
 import Ride from './ride'
 import RideCreator from './rideCreator'
-import {addRide, getRidesThisMonth} from '../utils/apiRequests'
+import {addRide, getRidesThisMonth} from '../api/apiRequests'
 import {format, isLeapYear, getDay, isBefore, parseISO} from 'date-fns'
 import './settings.css'
 
@@ -44,6 +45,7 @@ function Settings() {
     return (
         <div>
             <h2>Settings Area</h2>
+            <button><Link to='/portal'>Save Changes</Link></button>
             <div id='settingsMessage'>
                 <p></p>
                 <p></p>

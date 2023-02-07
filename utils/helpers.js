@@ -1,4 +1,4 @@
-import { addCustomer, checkCustomerExists, getRideToday, returnCheckInStatus } from "./apiRequests";
+import { addCustomer, checkCustomerExists, getRideToday, returnCheckInStatus } from "../src/api/apiRequests";
 import { format, isBefore } from "date-fns";
 
 export async function customerVerification(customerInfo) {

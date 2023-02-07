@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { searchCustomerByPhone } from '../../utils/apiRequests';
+import { searchCustomerByPhone } from '../api/apiRequests';
 import SearchResults from './searchResults'
 import './loyalty.css'
 import { rideTodayVerification } from '../../utils/helpers';
@@ -41,6 +41,7 @@ function Loyalty() {
     return (
         <div>
             <h4>Every Sunday earn 5% towards a monthly coupon just by riding your bike!</h4>
+            <p>No ride today, come back on ride day to login!</p>
             {rideWindowState ? (
                 <div>
                 <p>Check in below!</p>

@@ -44,7 +44,7 @@ function Login() {
             setAuth({username, password, roles, accessToken})
             setUsername('')
             setPassword('')
-            navigate(from, {replace: true});
+            navigate('/portal', {replace: true});
         } catch (error) {
             console.log('I think there was an error')
             console.log(error)

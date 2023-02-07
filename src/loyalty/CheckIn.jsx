@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useCallback} from 'react'
-import { checkInVerification, customerVerification } from '../utils/helpers'
+import { checkInVerification, customerVerification } from '../../utils/helpers'
 import {format, isSunday, set} from 'date-fns'
 import './CheckIn.css'
-import { getRideToday, recordCheckIn } from '../utils/apiRequests'
+import { getRideToday, recordCheckIn } from '../api/apiRequests'
 
 
 function CheckIn(props) {

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {format} from 'date-fns'
-import { updateRide } from '../utils/apiRequests'
+import { updateRide } from '../api/apiRequests'
 
 
 function Ride(props) {

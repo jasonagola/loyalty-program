@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { createCustomer } from '../utils/apiRequests'
+import { createCustomer } from '../api/apiRequests'
 import './newCustomer.css'
 
 const customerNotFoundMessage = "Oh no! Looks like we don't have you in our system. Sign up below"
