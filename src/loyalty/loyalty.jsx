@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { searchCustomerByPhone } from '../utils/apiRequests';
+import { searchCustomerByPhone } from '../../utils/apiRequests';
 import SearchResults from './searchResults'
-import './searchCustomers.css'
-import Settings from './settings';
-import { rideTodayVerification } from '../utils/helpers';
+import './loyalty.css'
+import { rideTodayVerification } from '../../utils/helpers';
 
-function SearchCustomer() {
+function Loyalty() {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const [rideWindowState, setRideWindowState] = useState(false)
@@ -52,10 +51,9 @@ function SearchCustomer() {
             ): (
                 <div></div>
             )}
-            <Settings/>
         </div>
     )
 }
 
 
-export default SearchCustomer
+export default Loyalty

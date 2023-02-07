@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {format, isSunday} from 'date-fns'
 import './searchResults.css'
-import NewCustomer from './NewCustomer'
-import CheckIn from './CheckIn'
+import NewCustomer from '../NewCustomer'
+import CheckIn from '../CheckIn'
 
 function SearchResults(props) {
     const rideWindowState = props.rideWindowState

@@ -1,8 +1,8 @@
 import React, {useState, useRef, useEffect} from 'react';
-import useAuth from './hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import {Link, useNavigate, useLocation } from 'react-router-dom';
 
-import axios from './api/axios'
+import axios from '../api/axios'
 const LOGIN_URL = '/auth';
 
 
@@ -37,13 +37,20 @@ function Login() {
             }
         const response = await axios.request(options)
         try {
-            console.log(JSON.stringify(response?.data))
+            
+            // console.log(JSON.stringify(response?.data))
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
+            console.log(roles)
             setAuth(username, password, roles, accessToken)
             setUsername('')
             setPassword('')
-            navigate(from, {replace: true});
+            // if (from == '/') {
+            //     console.log('You came from the sign in screen')
+            navigate('portal')
+            // } else {
+            //     navigate(from, {replace: true});
+            // }
         } catch (error) {
             console.log('I think there was an error')
             console.log(error)
@@ -66,6 +73,9 @@ function Login() {
 
     return (
         <div id='login'>
+            <h2>Local Bike Shop NFK</h2>
+            <p>You are logging into our service portal.  You can find our customer website here: <a>Local Bike Shop NFK</a></p>
+            <p></p>
             <p>{message}</p>
             <form onSubmit={handleLogin}> 
                 <label htmlFor='username'>Username:</label>

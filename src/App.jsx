@@ -1,12 +1,13 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import RequireAuth from './components/requireAuth';
-import SearchCustomer from './searchCustomer'
-import Login from './Login'
+import Login from './components/login'
 import Layout from './components/layout';
 import Unauthorized from './components/unathorized';
+import Portal from './components/portal'
 import Settings from './settings';
 import Home from './components/home';
+
 
 function App() {
 
@@ -25,11 +26,12 @@ const ROLES = {
           
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[2001]}/>}>
-          <Route path='/settings' element={<Settings/>}/> 
+        {/* <Route element={<RequireAuth allowedRoles={[2001]}/>}> */}
+          <Route path='portal' element={<Portal/>} />
+          {/* <Route path='settings' element={<Settings/>}/>  */}
           <Route />
           <Route /> 
-        </Route>
+        {/* </Route> */}
       </Route>
     </Routes>
   )
