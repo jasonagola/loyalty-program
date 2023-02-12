@@ -10,7 +10,7 @@ function Portal() {
             <h1>Welcome to the Local Bike Shop Service Portal</h1>
             <Loyalty/>
             <SearchResults/>
-            <button><Link to='settings'>Ride Settings</Link></button>
+            <Link to='settings'><button>Ride Settings</button></Link>
         </div>
     )
 }
