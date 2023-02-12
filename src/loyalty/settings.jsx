@@ -5,18 +5,20 @@ import RideCreator from './rideCreator'
 import {addRide, getRidesThisMonth} from '../api/apiRequests'
 import {format, isLeapYear, getDay, isBefore, parseISO} from 'date-fns'
 import './settings.css'
-
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 
 function Settings() {
     const [settingsMessage, setSettingsMessage] = useState([])
     const [ridesThisMonth, setRidesThisMonth] = useState([])
+
+    const axios = useAxiosPrivate()
 
     useEffect(() => {
        loadRides()
     }, [])
 
     async function loadRides() {
-        const rides = await getRidesThisMonth()
+        const rides = await getRidesThisMonth(axios)
         const sortedRides = dateQuickSort(rides)
         setRidesThisMonth(sortedRides)
     }
@@ -52,7 +54,7 @@ function Settings() {
             </div>
 
             <div id='newRide'>
-                <RideCreator/>
+                <RideCreator reload={loadRides}/>
             </div>
             
             <div>

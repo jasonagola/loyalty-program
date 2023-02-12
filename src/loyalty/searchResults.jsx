@@ -8,6 +8,8 @@ function SearchResults(props) {
     const rideWindowState = props.rideWindowState
     const [searchResults, setSearchResults] = useState([])
     const [checkInStatus, setCheckStatus] = useState(false)
+
+    console.log(props.searchResults)
    
     
     useEffect(() => {
@@ -16,7 +18,7 @@ function SearchResults(props) {
 
     if (searchResults === undefined) {
         return (
-            <div>
+            <div id='newCustomerContainer'>
                 <p></p>
                 <NewCustomer/>
             </div>
@@ -33,7 +35,6 @@ function SearchResults(props) {
                         <div className='checkIn'>
                             <CheckIn customerInfo={customerInfo}/>
                         </div>
-                        {/* <button id='checkInButton' className='checkIn' value={result.id}>Check in!</button> */}
                     </div>
                     )
                 }

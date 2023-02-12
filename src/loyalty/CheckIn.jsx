@@ -3,6 +3,7 @@ import { checkInVerification, customerVerification } from '../../utils/helpers'
 import {format, isSunday, set} from 'date-fns'
 import './CheckIn.css'
 import { getRideToday, recordCheckIn } from '../api/apiRequests'
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 
 
 function CheckIn(props) {
@@ -12,13 +13,15 @@ function CheckIn(props) {
     const [handleClick, setHandleClick] = useState()
     const [buttonMessage, setButtonMessage] = useState('')
 
+    const axiosPrivate = useAxiosPrivate()
+
     useEffect(()=> {
         verifyCheckIn(customerInfo)
     }, [customerInfo])
 
     useEffect(() => {
         verifyDay()
-    }, [checkedIn, customerInfo])
+    }, [checkedIn])
 
     useEffect(() => {
         updateButtonState()
@@ -48,7 +51,7 @@ function CheckIn(props) {
     }
 
     async function checkIn() {
-        await customerVerification(customerInfo)
+        await customerVerification(customerInfo, axiosPrivate)
         await recordCheckIn(customerInfo)
         await verifyCheckIn(customerInfo)
         updateButtonState()

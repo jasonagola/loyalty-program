@@ -1,8 +1,8 @@
 import { addCustomer, checkCustomerExists, getRideToday, returnCheckInStatus } from "../src/api/apiRequests";
 import { format, isBefore } from "date-fns";
 
-export async function customerVerification(customerInfo) {
-    const response = await checkCustomerExists(customerInfo.id)
+export async function customerVerification(customerInfo, axios) {
+    const response = await checkCustomerExists(customerInfo.id, axios)
     const customerExists = Object.values(response[0])[0]
     console.log(customerExists)
 
@@ -20,25 +20,27 @@ export async function checkInVerification(customerInfo) {
     return checkInExists
 }
 
-export async function rideTodayVerification() {
+export async function rideTodayVerification(axios) {
     const rideWindow = false
     let rideInfo = {}
-    const response = await getRideToday()
+    const response = await getRideToday(axios)
     if (response.length == 0) {
         return {rideWindow:false}
     } else {
         let rideInfo = response[0]
         const start = timeToSeconds(rideInfo.start_time)
-        console.log(start)
+        // console.log(`Start Time: ${start}`)
         const end = timeToSeconds(rideInfo.end_time)
-        console.log(end)
+        // console.log(`End Time: ${end}`)
         const now = timeToSeconds(format(new Date(), 'HH:mm:ss'))
-        console.log(now)
+        // console.log(`Current Time ${now}`)
         if(now > start && now < end) {
+            console.log('In the time window')
             return {rideInfo, rideWindow: true}
         } else {
-            return {rideInfo: 'No Ride', rideWindow: false}
             console.log('Not in time window')
+            return {rideInfo: 'No Ride', rideWindow: false}
+            
         }
 
     }
@@ -66,6 +68,6 @@ export function dateToDb(date) {
 
 export function timeToSeconds(timeString) {
     const [hours, minutes, seconds] = timeString.split(':')
-    const timeInSeconds = ((360*hours) + (60*minutes) + seconds)
+    const timeInSeconds = ((3600*hours) + (60*minutes) + seconds)
     return timeInSeconds
 }
