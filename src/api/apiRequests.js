@@ -1,14 +1,13 @@
-import axios from './axios'
 import {format} from 'date-fns'
 import { dateToDb } from '../../utils/helpers'
 const deployed = 'https://bike.jasonagola.dev/backend'
 const devUrl = 'http://localhost:8800'
 const backendUrl = devUrl
 
-export async function searchCustomerByPhone(searchTerm) {
+export async function searchCustomerByPhone(searchTerm, axios) {
     const options = {
         method: 'GET',
-        url: backendUrl + '/square/searchCustomer',
+        url: '/square/searchCustomer',
         params: {
             searchTerm: searchTerm 
         }
@@ -21,11 +20,11 @@ export async function searchCustomerByPhone(searchTerm) {
     }
 }
 
-export async function createCustomer(newCustomerInfo) {
+export async function createCustomer(newCustomerInfo, axios) {
     const {first_name, last_name, phone_number, email} = newCustomerInfo
     const options = {
         method: 'PUT',
-        url: backendUrl + '/square/createCustomer',
+        url: '/square/createCustomer',
         params: {
             first_name: first_name,
             last_name: last_name,
@@ -46,15 +45,15 @@ export async function createCustomer(newCustomerInfo) {
 ////////////////////Database
 //////////Customer
 
-export async function checkCustomerExists(customer_id) {
+export async function checkCustomerExists(customer_id, axios) {
     const options = {
         method: 'GET',
-        url: backendUrl + '/db/customer/customerExists',
+        url: '/loyalty/customerExists',
         params: {
             customer_id: customer_id
         },
     }
-    const response = await axios(options);
+    const response = await axios.request(options);
     try {
         return response.data
     } catch(error) {
@@ -62,12 +61,12 @@ export async function checkCustomerExists(customer_id) {
     }
 }
 
-export async function addCustomer(customerInfo) {
+export async function addCustomer(customerInfo, axios) {
     console.log('Hitting API request function for custsomer add')
     const {id, givenName, familyName, phoneNumber, emailAddress} = customerInfo
     const options = {
         method: 'PUT',
-        url: backendUrl + '/db/customer/add',
+        url: '/loyalty/customer',
         params: {
             customer_id: id,
             first_name: givenName,
@@ -85,10 +84,10 @@ export async function addCustomer(customerInfo) {
     }
 }
 
-export async function returnCheckInStatus(customerInfo) {
+export async function returnCheckInStatus(customerInfo, axios) {
     const options = {
         method: 'GET',
-        url: backendUrl + '/db/loyalty/checkInStatus',
+        url: '/loyalty/checkInStatus',
         params: {
             customer_id: customerInfo.id,
         }
@@ -102,7 +101,7 @@ export async function returnCheckInStatus(customerInfo) {
     }
 }
 
-export async function recordCheckIn(customerInfo) {
+export async function recordCheckIn(customerInfo, axios) {
     const customer_id = customerInfo.id
     const options = {
         method: 'PUT',
@@ -123,10 +122,10 @@ export async function recordCheckIn(customerInfo) {
 
 
 /////
-export async function addRide(rideInfo) {
+export async function addRide(rideInfo, axios) {
     const options = {
         method: 'POST',
-        url: backendUrl + '/loyalty/Ride',
+        url: '/loyalty/Ride',
         params: {
             rideInfo: rideInfo
         }
@@ -140,10 +139,10 @@ export async function addRide(rideInfo) {
     }
 }
 
-export async function deleteRide(rideInfo) {
+export async function deleteRide(rideInfo, axios) {
     const options = { 
         method: 'DELETE',
-        url: backendUrl + '/db/rides/delete',
+        url: '/db/rides/delete',
         params: {
             rideInfo: rideInfo
         }
@@ -158,10 +157,10 @@ export async function deleteRide(rideInfo) {
 }
 
 
-export async function getRidesThisMonth() {
+export async function getRidesThisMonth(axios) {
     const options = {
         method:'GET',
-        url: backendUrl + '/loyalty/listRides'
+        url: '/loyalty/listRides'
     }
     const response = await axios.request(options)
     try {
@@ -185,7 +184,7 @@ export async function getRidesThisMonth() {
 //     }
 // }
 
-export async function updateRide(rideInfo) {
+export async function updateRide(rideInfo, axios) {
     const options = {
         method: 'GET',
         url: backendUrl + '/db/rides/updateRide',
@@ -201,10 +200,10 @@ export async function updateRide(rideInfo) {
     }   
 }
 
-export async function getRideToday() {
+export async function getRideToday(axios) {
     const options = {
         method: 'GET',
-        url: backendUrl + '/loyalty/ride',
+        url: '/loyalty/ride',
         params: {
             date: dateToDb(new Date())
         }
