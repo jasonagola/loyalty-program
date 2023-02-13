@@ -48,7 +48,7 @@ export async function createCustomer(newCustomerInfo, axios) {
 export async function checkCustomerExists(customer_id, axios) {
     const options = {
         method: 'GET',
-        url: '/loyalty/customerExists',
+        url: '/loyalty/customer',
         params: {
             customer_id: customer_id
         },
@@ -84,12 +84,13 @@ export async function addCustomer(customerInfo, axios) {
     }
 }
 
-export async function returnCheckInStatus(customerInfo, axios) {
+export async function returnCheckInStatus(customerInfo, rideId, axios) {
     const options = {
         method: 'GET',
         url: '/loyalty/checkInStatus',
         params: {
             customer_id: customerInfo.id,
+            ride_id: rideId
         }
     }
     const response = await axios.request(options)
@@ -101,13 +102,14 @@ export async function returnCheckInStatus(customerInfo, axios) {
     }
 }
 
-export async function recordCheckIn(customerInfo, axios) {
+export async function recordCheckIn(customerInfo, rideInfo, axios) {
     const customer_id = customerInfo.id
     const options = {
         method: 'PUT',
-        url: backendUrl + '/db/loyalty/checkIn',
+        url: '/loyalty/checkIn',
         params: {
-            customer_id: customer_id,
+            customer_id: customerInfo.id,
+            rideInfo: rideInfo,
             checkInDate: format(new Date(), 'yyyy-MM-dd')
         }
     }
@@ -125,7 +127,7 @@ export async function recordCheckIn(customerInfo, axios) {
 export async function addRide(rideInfo, axios) {
     const options = {
         method: 'POST',
-        url: '/loyalty/Ride',
+        url: '/loyalty/ride',
         params: {
             rideInfo: rideInfo
         }
@@ -139,12 +141,12 @@ export async function addRide(rideInfo, axios) {
     }
 }
 
-export async function deleteRide(rideInfo, axios) {
+export async function deleteRide(rideId, axios) {
     const options = { 
         method: 'DELETE',
-        url: '/db/rides/delete',
+        url: '/loyalty/ride',
         params: {
-            rideInfo: rideInfo
+            rideId: rideId
         }
     }
     const response  = await axios.request(options)
@@ -186,8 +188,8 @@ export async function getRidesThisMonth(axios) {
 
 export async function updateRide(rideInfo, axios) {
     const options = {
-        method: 'GET',
-        url: backendUrl + '/db/rides/updateRide',
+        method: 'PUT',
+        url: '/loyalty/ride',
         params: {
             rideInfo: rideInfo
         }

@@ -14,8 +14,8 @@ export async function customerVerification(customerInfo, axios) {
     }
 }
 
-export async function checkInVerification(customerInfo) {
-    const response = await returnCheckInStatus(customerInfo)
+export async function checkInVerification(customerInfo, rideId, axios) {
+    const response = await returnCheckInStatus(customerInfo, rideId, axios)
     const checkInExists = Object.values(response[0])[0]
     return checkInExists
 }
