@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import { searchCustomerByPhone } from '../api/apiRequests';
 import SearchResults from './searchResults'
 import './loyalty.css'
@@ -37,22 +38,44 @@ function Loyalty() {
         }
     }
 
+    const handleClearSearch = () => {
+        const searchBar = document.getElementById('searchBar')
+        searchBar.value = ''
+        setSearchTerm('')
+        setSearchResults([])
+    }
+
     return (
-        <div>
-            <h4>Every Sunday earn 5% towards a monthly coupon just by riding your bike!</h4>
+        <div id='loyalty'>
+            <div class='pageHeader'>
+                <h1>Casual Ride Loyalty Program</h1>
+            </div>
             
-            {rideWindowState ? (
-                <div>
-                <p>Check in below!</p>
-                <input id='searchBar' onChange={handleChange} placeholder='Search by Phone Number'></input>
-                {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
-                <SearchResults rideWindowState={rideWindowState} searchResults={searchResults}/>
+            <div className='pageContent'>
+                {rideWindowState ? (
+                    <div className='checkInContainer'>
+                    <h2>Check In Here!</h2>
+                    <input id='searchBar' onChange={handleChange} placeholder='Search by Phone Number'></input>
+                    <button onClick={handleClearSearch}>Clear Search</button>
+                    {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
+                    <SearchResults rideWindowState={rideWindowState} searchResults={searchResults} rideInfo={rideInfo}/>
+                    </div>
+                ): (
+                    <div className='checkInContainer'>
+                        <h3>No ride today, come back on ride day to login!</h3>
+                    </div>
+                )}
+
+                <div id='howItWorks'>
+                    <h2>How does it work?</h2>
+                    <p>Every ride at Local Bike Shop NFK is assigned a discount percentage.  When you check in, you accrue value towards a discount coupon at the end of the month! Save up for something special or just make the most out of riding your bike!</p>
                 </div>
-            ): (
-                <div>
-                    <p>No ride today, come back on ride day to login!</p>
-                </div>
-            )}
+            </div>
+
+            <div id='loyaltyButtons'>
+                <Link to='settings'><button>Ride Settings</button></Link>
+                {/* <Link to='admin'><button>Admin Settings</button></Link> */}
+            </div>
         </div>
     )
 }

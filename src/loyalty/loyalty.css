@@ -1,7 +1,59 @@
-#searchBar {
-    width: 200px;
+#loyalty {
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    width: 100vw;
+    height: 100vh;
+    padding: 0.25rem;
+    justify-content: center;
 }
 
-::placeholder {
-    text-align: center;
+#howItWorks {
+  width: 300px;
+  height: 300px;
+
 }
+
+.pageHeader {
+    grid-template-rows: 1 /2;
+}
+
+.pageContent {
+    display: grid;
+    grid-row: 2 / 3;
+    justify-content: center;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+#searchBar {
+    min-width: 2vw;
+    max-width: 25em;
+    width: 300px;
+    font-weight: 500;
+    padding: 0.2em;
+  
+}
+
+/* ::placeholder {
+
+} */
+
+.checkInContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin-bottom: auto;
+    /* border: 2px solid white;
+    border-radius: 1rem; */
+}
+
+.checkInContainer button {
+    margin: 1em
+}
+
+#loyaltyButtons {
+   display: grid;
+   grid-row: 3/4;
+   justify-content: center;
+} 

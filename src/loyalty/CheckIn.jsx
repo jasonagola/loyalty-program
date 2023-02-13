@@ -15,8 +15,10 @@ function CheckIn(props) {
 
     const axiosPrivate = useAxiosPrivate()
 
+    const rideInfo = props.rideInfo
+    
     useEffect(()=> {
-        verifyCheckIn(customerInfo)
+        verifyCheckIn()
     }, [customerInfo])
 
     useEffect(() => {
@@ -32,7 +34,7 @@ function CheckIn(props) {
        // Can still allow for search and new customer entry
 
         const now = new Date()
-        const ride = await getRideToday()
+        const ride = await getRideToday(axiosPrivate)
         console.log(ride)
         if (isSunday(now) && now.getHours()>=10 && now.getHours()<11) {
             setCheckInWindow(true)
@@ -43,19 +45,17 @@ function CheckIn(props) {
         console.log('Day Verification Running')
     }
 
-    async function verifyCheckIn(customerInfo) {
-        const checkInStatus = await checkInVerification(customerInfo)
+    async function verifyCheckIn() {
+        const checkInStatus = await checkInVerification(customerInfo, rideInfo.ride_id, axiosPrivate)
         setCheckedIn((checkInStatus) ? true: false)
         updateButtonState()
-        console.log('Changed Checked In Status')
     }
 
     async function checkIn() {
         await customerVerification(customerInfo, axiosPrivate)
-        await recordCheckIn(customerInfo)
-        await verifyCheckIn(customerInfo)
+        await recordCheckIn(customerInfo, rideInfo, axiosPrivate)
+        await verifyCheckIn(customerInfo, axiosPrivate)
         updateButtonState()
-        console.log('Did the message change?')
     }
 
     const updateButtonState = () => {

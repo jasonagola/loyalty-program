@@ -8,6 +8,7 @@ function SearchResults(props) {
     const rideWindowState = props.rideWindowState
     const [searchResults, setSearchResults] = useState([])
     const [checkInStatus, setCheckStatus] = useState(false)
+    const rideInfo = props.rideInfo
 
     console.log(props.searchResults)
    
@@ -33,7 +34,7 @@ function SearchResults(props) {
                     <div className='searchResult' key={result.id}>
                         <p>{result.givenName} {result.familyName}</p>
                         <div className='checkIn'>
-                            <CheckIn customerInfo={customerInfo}/>
+                            <CheckIn customerInfo={customerInfo} rideInfo={rideInfo}/>
                         </div>
                     </div>
                     )

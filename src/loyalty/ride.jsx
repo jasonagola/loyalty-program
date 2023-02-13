@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import {format} from 'date-fns'
-import { updateRide } from '../api/apiRequests'
+import { updateRide, deleteRide} from '../api/apiRequests'
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 
 
 function Ride(props) {
     const ride = props.ride
     const reloadRides = props.reload
     const [edit, setEdit] = useState(false)
+    const axiosPrivate = useAxiosPrivate()
 
     const getRideInfo = () => {
         const rideInfo = {
@@ -16,20 +18,30 @@ function Ride(props) {
             end: document.querySelector(`[id='${ride.ride_id}'] .endTime`).value,
             value: document.querySelector(`[id='${ride.ride_id}'] .rideValue`).value,
         }
+        console.log(rideInfo)
         return rideInfo
     }
 
     const handleSave = async () => {
         const rideInfo = getRideInfo()
         console.log(rideInfo)
-        const response = await updateRide(rideInfo)
-        reloadRides()
-        setEdit(false)
+        const response = await updateRide(rideInfo, axiosPrivate)
+        try {
+            reloadRides()
+            setEdit(false)
+        } catch(err) {
+
+        }
+        
     }
 
-    const deleteRide = async () => {
-        const rideInfo = getRideInfo()
-        deleteRide(rideInfo.id)
+    const handleDelete = async () => {
+        const response = await deleteRide(ride.ride_id, axiosPrivate)
+        try {
+            reloadRides()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -52,7 +64,7 @@ function Ride(props) {
                 <p>Ride Window: {ride.start_time}-{ride.end_time}</p>
                 <p>Loyalty Reward: {ride.ride_value}</p>
                 <button onClick={() => setEdit(true)}>Edit</button>
-                <button onClick={deleteRide}>Delete</button>
+                <button onClick={handleDelete}>Delete</button>
             </div>
             )}            
         </div>

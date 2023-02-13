@@ -46,8 +46,11 @@ function Settings() {
 
     return (
         <div>
-            <h2>Settings Area</h2>
-            <button><Link to='/portal'>Save Changes</Link></button>
+            <h1>Ride Loyalty Settings</h1>
+            <div id='returnToCheckIn'>
+                <Link to='/portal'><button>Back to Check In</button></Link>
+            </div>
+            
             <div id='settingsMessage'>
                 <p></p>
                 <p></p>
