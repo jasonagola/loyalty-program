@@ -55,7 +55,7 @@ function Loyalty() {
                 {rideWindowState ? (
                     <div className='checkInContainer'>
                     <h2>Check In Here!</h2>
-                    <input id='searchBar' onChange={handleChange} placeholder='Search by Phone Number'></input>
+                    <input id='searchBar' onChange={handleChange} autoComplete="off" placeholder='Search by Phone Number'></input>
                     <button onClick={handleClearSearch}>Clear Search</button>
                     {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
                     <SearchResults rideWindowState={rideWindowState} searchResults={searchResults} rideInfo={rideInfo}/>

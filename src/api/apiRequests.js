@@ -103,7 +103,6 @@ export async function returnCheckInStatus(customerInfo, rideId, axios) {
 }
 
 export async function recordCheckIn(customerInfo, rideInfo, axios) {
-    const customer_id = customerInfo.id
     const options = {
         method: 'PUT',
         url: '/loyalty/checkIn',
