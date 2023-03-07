@@ -14,6 +14,8 @@ function Loyalty() {
 
     const axiosPrivate = useAxiosPrivate()
 
+    console.log(`Search Term Length is ${searchTerm.length}`)
+
     useEffect(() => {
         setRideState()
     },[])
@@ -41,13 +43,13 @@ function Loyalty() {
     const handleClearSearch = () => {
         const searchBar = document.getElementById('searchBar')
         searchBar.value = ''
-        setSearchTerm('')
+        setSearchTerm()
         setSearchResults([])
     }
 
     return (
         <div id='loyalty'>
-            <div class='pageHeader'>
+            <div className='pageHeader'>
                 <h1>Casual Ride Loyalty Program</h1>
             </div>
             
@@ -56,13 +58,15 @@ function Loyalty() {
                     <div className='checkInContainer'>
                     <h2>Check In Here!</h2>
                     <input id='searchBar' onChange={handleChange} autoComplete="off" placeholder='Search by Phone Number'></input>
-                    <button onClick={handleClearSearch}>Clear Search</button>
+                    {searchTerm.length > 0 && <button onClick={handleClearSearch}>Clear Search</button>}
                     {/* <button id='searchCustomerButton' onClick={handleClick}>Search!</button> */}
                     <SearchResults rideWindowState={rideWindowState} searchResults={searchResults} rideInfo={rideInfo}/>
                     </div>
                 ): (
                     <div className='checkInContainer'>
-                        <h3>No ride today, come back on ride day to login!</h3>
+                        <h2>No ride today, come back on ride day to login!</h2>
+                        <br/>
+                        <br/>
                     </div>
                 )}
 
@@ -74,7 +78,8 @@ function Loyalty() {
 
             <div id='loyaltyButtons'>
                 <Link to='settings'><button>Ride Settings</button></Link>
-                {/* <Link to='admin'><button>Admin Settings</button></Link> */}
+                <Link to='/admin'><button>Admin Settings</button></Link>
+                <button>Logout IMPLEMENT!!!!!!</button>
             </div>
         </div>
     )

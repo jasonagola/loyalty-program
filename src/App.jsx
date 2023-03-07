@@ -1,43 +1,50 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
-import RequireAuth from './components/requireAuth';
-import Login from './components/login'
-import Layout from './components/layout';
-import Unauthorized from './components/unathorized';
-import Portal from './components/portal'
+import RequireAuth from './authentication/requireAuth';
+import Login from './authentication/login'
+import Layout from './pages/layout';
+import Unauthorized from './pages/unauthorized';
+import Portal from './pages/portal'
 import Settings from './loyalty/settings';
-import Home from './components/home';
-import Missing from './components/missing';
-import Admin from './components/admin';
+import Home from './pages/home';
+import Missing from './pages/missing';
+import Admin from './pages/admin';
+import Bingo from './pages/bingo'
+import PhotoUpload from './bingo/PhotoUpload';
+import Loyalty from './loyalty/Loyalty';
 
 
 function App() {
 
-const ROLES = {
-  
-}
 
   return (
     <Routes>
       <Route path='/' element={<Layout/>}>
         <Route path='/' element={<Home/>}/>
-        <Route path='login' element={<Login/>} />
-        <Route path='unauthorized' element={<Unauthorized/>}/>
-      </Route>
+        <Route path='/login' element={<Login/>} />
+        <Route path='/unauthorized' element={<Unauthorized/>}/>
 
-      <Route element={<RequireAuth allowedRoles={[2001, 3001, 4001, 5001]}/>}>
-        <Route path='portal' element={<Portal/>}/>
-      </Route>
+        <Route element={<RequireAuth allowedRoles={[2001, 3001, 4001, 5001]}/>}>
+          <Route path='/home' element={<Home/>}/>
+        </Route>
+      
 
-      <Route element={<RequireAuth allowedRoles={[2001, 3001]}/>}>
-        <Route path='portal/settings' element={<Settings/>}/> 
-      </Route>
+        <Route element={<RequireAuth allowedRoles={[2001, 3001, 4001, 5001]}/>}>
+          <Route path='/loyalty' element={<Loyalty/>}/>
+        </Route>
 
-      <Route element={<RequireAuth allowedRoles={[2001]}/>}>
-        <Route path='admin' element={<Admin/>}/>
-      </Route>
+        <Route element={<RequireAuth allowedRoles={[2001, 3001]}/>}>
+          <Route path='/loyalty/settings' element={<Settings/>}/> 
+        </Route>
 
-      <Route path='*' element={<Missing/>}/>
+        <Route element={<RequireAuth allowedRoles={[2001]}/>}>
+          <Route path='/admin' element={<Admin/>}/>
+          <Route path='/pedalpusher' element={<Bingo/>}/>
+        </Route>
+
+        <Route path='*' element={<Missing/>}/>
+
+      </Route>
     </Routes>
   )
 }

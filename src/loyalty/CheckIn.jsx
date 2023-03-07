@@ -78,7 +78,7 @@ function CheckIn(props) {
             return
         } else if (!checkedIn) {
             checkInButton.onclick = checkIn
-            setButtonMessage('Check In (Test)!')
+            setButtonMessage('Check In!')
             return
         } else if (!checkInWindow) {
             setButtonMessage('Come Back on Sunday')

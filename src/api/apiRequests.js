@@ -1,8 +1,5 @@
 import {format} from 'date-fns'
 import { dateToDb } from '../../utils/helpers'
-const deployed = 'https://bike.jasonagola.dev/backend'
-const devUrl = 'http://localhost:8800'
-const backendUrl = devUrl
 
 export async function searchCustomerByPhone(searchTerm, axios) {
     const options = {
@@ -215,5 +212,26 @@ export async function getRideToday(axios) {
         return response.data
     } catch(error) {
         console.log(error)
+    }
+}
+
+
+export async function registerNewUser(user, axios) {
+    const options = {
+        method: 'POST',
+        url: '/register',
+        data: {
+            username: user.username,
+            password: user.password,
+            roles: user.roles
+        }
+    };
+    const response = await axios.request(options)
+    try {
+        console.log(response)
+        return response
+    } catch(error) {
+        console.log(error)
+        return error
     }
 }

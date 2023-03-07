@@ -1,0 +1,18 @@
+.bingoSquare h2 {
+    font-size: rem;
+}
+
+.bingoSquare p {
+    font-size: 1rem;
+}
+
+  /* Apply the sizing to the element */
+.bingoSquare {
+    display: grid;
+    /* --windowDimensions is the smallest of the current window width or height */
+    --boxSize: calc(var(--windowDimension) / 5);
+    width: var(--boxSize);
+    height: var(--boxSize);
+    border: 1px solid white;
+    box-sizing: border-box;
+}
